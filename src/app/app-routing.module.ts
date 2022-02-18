@@ -18,6 +18,9 @@ const routes: Routes = [
   // path: '/dashboard' PagesRouting
   // path: '/auth' AuthRouting
 
+  /* Cuando estoy en la ruta con el slash vacío va a redireccionar automáticamente al dashboard */
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+
   /* Si es que la ruta que se coloca en el slash, no es de ninguno de acá se va a redirigir al componente de Nopagefound */
   { path: '**', component: NopagefoundComponent }
 ]

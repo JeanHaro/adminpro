@@ -13,15 +13,17 @@ const routes: Routes = [
     /* Rutas protegidas */
   /* path inicial */
     { 
-        path: '', 
+        // El path que tendrán estas rutas será el dashboard
+        path: 'dashboard', 
         component: PagesComponent,
         /* Rutas hijas */ 
         children: [
-            { path: 'dashboard', component: DashboardComponent },
+            // Ruta por defecto, ya que es el dashboard
+            { path: '', component: DashboardComponent },
             { path: 'progress', component: ProgressComponent },
             { path: 'grafica1', component: Grafica1Component },
             /* Cuando estoy en la ruta con el slash vacío va a redireccionar automáticamente al dashboard */
-            { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+            // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Esto se colocará en el Routing general (app-routing) por el path vacio
         ]
     },
 
