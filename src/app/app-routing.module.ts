@@ -7,17 +7,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Routing Modules
 import { PagesRoutingModule } from './pages/pages.routing';
+import { AuthRoutingModule } from './auth/auth.routing';
 
 // Componentes
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+
 
 // Rutas de la aplicación
 const routes: Routes = [
-  /* Rutas publicas */
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  // path: '/dashboard' PagesRouting
+  // path: '/auth' AuthRouting
 
   /* Si es que la ruta que se coloca en el slash, no es de ninguno de acá se va a redirigir al componente de Nopagefound */
   { path: '**', component: NopagefoundComponent }
@@ -28,7 +27,8 @@ const routes: Routes = [
     /* CommonModule */
     // forRoot - es para rutas principales 
     RouterModule.forRoot( routes ),
-    PagesRoutingModule
+    PagesRoutingModule,
+    AuthRoutingModule
   ],
   exports: [ RouterModule ]
 })
