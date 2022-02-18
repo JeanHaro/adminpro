@@ -40,7 +40,6 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  declarations: [],
   imports: [
     /* CommonModule */
     // forRoot - es para rutas principales 
