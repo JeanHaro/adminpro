@@ -5,18 +5,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 // Modulos
 import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './auth/auth.module';
 
 /* Componentes */
 import { AppComponent } from './app.component';
-import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
-import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
+import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
     NopagefoundComponent
   ],
   imports: [
@@ -24,7 +21,8 @@ import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component'
     // Habilita al angular en general todas las rutas que exportamos de acá
     AppRoutingModule,
     // Modulo de páginas - con sus componentes
-    PagesModule
+    PagesModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]
