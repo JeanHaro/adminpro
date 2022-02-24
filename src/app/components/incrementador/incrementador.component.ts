@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-incrementador',
@@ -6,15 +6,23 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   styles: [
   ]
 })
-export class IncrementadorComponent {
+export class IncrementadorComponent implements OnInit {
+  
+  // ngOnInit() - solo se ejecuta una vez
+  // Ejecuta al iniciar la pagina web
+  ngOnInit() {
+    // le añade el btn
+    this.btnClass = `btn ${this.btnClass}`;
+  }
 
   // Una propiedad o variable progreso
   // Recibir un valor desde el padre, pide valores
+  // Con el Input, ya le digo a Angular o ya va a saber que este componente incremetador puede recibir una propiedad desde el padre llamada progreso
   // En el paréntesis del Input podemos renombrar el nombre progreso
   // Así en el padre se llama con ese renombre
   // @Input('valor') progreso: number = 50;
   @Input() progreso: number = 50;
-  // Con el Input, ya le digo a Angular o ya va a saber que este componente incremetador puede recibir una propiedad desde el padre llamada progreso
+  @Input() btnClass: string = 'btn-primary';
 
   // Va a escuchar cambios para emitir
   // Los Output son de tipo EventEmitter, es una función que el componente padre va a poder ejecutar
