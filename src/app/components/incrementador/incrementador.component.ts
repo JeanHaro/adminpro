@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-incrementador',
@@ -9,13 +9,18 @@ import { Component } from '@angular/core';
 export class IncrementadorComponent {
 
   // Una propiedad o variable progreso
-  progreso: number = 50;
+  // Recibir un valor desde el padre, pide valores
+  // En el paréntesis del Input podemos renombrar el nombre progreso
+  // Así en el padre se llama con ese renombre
+  // @Input('valor') progreso: number = 50;
+  @Input() progreso: number = 50;
+  // Con el Input, ya le digo a Angular o ya va a saber que este componente incremetador puede recibir una propiedad desde el padre llamada progreso
 
   // Crearnos un get que se llame getPorcentaje()
   // Obtener el porcentaje
-  get getPorcentaje() {
+  /* get getPorcentaje() {
     return `${this.progreso}%`;
-  }
+  } */
 
   // Es bueno tiparlo para que typescript ayude con los valores
   cambiarValor (valor: number) {
