@@ -12,7 +12,7 @@ import { PagesComponent } from './pages.component';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
-import { AppRoutingModule } from '../app-routing.module';
+import { ComponentsModule } from '../components/components.module';
 
 @NgModule({
   // Solo va a funcionar interna en el mismo modulo
@@ -36,7 +36,8 @@ import { AppRoutingModule } from '../app-routing.module';
     SharedModule,
     // AppRoutingModule
     RouterModule, // Otra forma de importar el RouterModule
-    FormsModule
+    FormsModule,
+    ComponentsModule
   ]
 })
 export class PagesModule { }
