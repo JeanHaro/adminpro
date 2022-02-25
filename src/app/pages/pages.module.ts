@@ -4,6 +4,8 @@ import { RouterModule } from '@angular/router';
 // Para utilizar ngModel tenemos que importar este FormsModule en el modulo.ts
 import { FormsModule } from '@angular/forms';
 
+import { NgChartsModule } from 'ng2-charts';
+
 // Componentes
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
@@ -37,7 +39,8 @@ import { ComponentsModule } from '../components/components.module';
     // AppRoutingModule
     RouterModule, // Otra forma de importar el RouterModule
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    NgChartsModule
   ]
 })
 export class PagesModule { }
