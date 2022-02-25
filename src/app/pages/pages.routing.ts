@@ -8,6 +8,7 @@ import { PagesComponent } from './pages.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ProgressComponent } from './progress/progress.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 const routes: Routes = [
     /* Rutas protegidas */
@@ -22,6 +23,7 @@ const routes: Routes = [
             { path: '', component: DashboardComponent },
             { path: 'progress', component: ProgressComponent },
             { path: 'grafica1', component: Grafica1Component },
+            { path: 'account-settings', component: AccountSettingsComponent },
             /* Cuando estoy en la ruta con el slash vacío va a redireccionar automáticamente al dashboard */
             // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Esto se colocará en el Routing general (app-routing) por el path vacio
         ]

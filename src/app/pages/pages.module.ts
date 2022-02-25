@@ -13,6 +13,7 @@ import { PagesComponent } from './pages.component';
 // Modulos
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 @NgModule({
   // Solo va a funcionar interna en el mismo modulo
@@ -20,14 +21,16 @@ import { ComponentsModule } from '../components/components.module';
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
-    PagesComponent
+    PagesComponent,
+    AccountSettingsComponent
   ],
   // Exportamos los componentes para poder usarlos en otros lados
   exports: [
     DashboardComponent,
     ProgressComponent,
     Grafica1Component,
-    PagesComponent
+    PagesComponent,
+    AccountSettingsComponent
   ],
   imports: [
     // Este es el que incluye la directivas del ngFor y ngIf, entre otras cosas
