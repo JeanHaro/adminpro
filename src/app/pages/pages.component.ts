@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 // Servicios
 import { SettingsService } from '../services/settings.service';
 
+// Global
+declare function customInitFunctions(): void;
+
 @Component({
   selector: 'app-pages',
   templateUrl: './pages.component.html',
@@ -18,6 +21,7 @@ export class PagesComponent implements OnInit {
 
     // Enviamos el atributo cambiado
     this.linkTheme?.setAttribute('href', url); */
+    customInitFunctions();
   }
 
 }
