@@ -32,7 +32,11 @@
                     
                     <ul aria-expanded="false" class="collapse">
                         <li *ngFor="let subMenuItem of item.submenu">
-                            <a [routerLink]="subMenuItem.url">{{ subMenuItem.titulo }}</a>
+                            <!-- routerLinkActive - si el enlace está activo, añadirá una clase active -->
+                            <!-- routerLinkActiveOptions - exact, para indicar que sea exactamente el link que se va a activar -->
+                            <a [routerLink]="subMenuItem.url"
+                            routerLinkActive="active"
+                            [routerLinkActiveOptions]="{ exact: true }">{{ subMenuItem.titulo }}</a>
                         </li>
                     </ul>
                 </li>
