@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 // interval - retorna un observable, y ya viene configurado la parte del setInteval
 import { Observable, interval } from 'rxjs';
 // take - cuantas emisiones del observable necesitan
-import { retry, take, map } from 'rxjs/operators';
+import { retry, take, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -68,14 +68,16 @@ export class RxjsComponent {
       (valor) => console.log(valor)
     )
     /*
-    0
-    1
     2
-    3
-    .
-    -
-    -
-    infinito y mas alla 
+    4
+    6
+    8
+    10
+    12
+    14
+    16
+    18
+    20
     */
   }
 
@@ -118,13 +120,11 @@ export class RxjsComponent {
   }
 
   retornaIntervalo(): Observable<number> {
-    return interval(1000)
+    return interval(500)
             .pipe(
-              take(4),
-              map( valor => {
-                // transformar los valores
-                return valor + 1
-              })
+              map( valor =>  valor + 1), // transformar datos
+              filter(valor => valor % 2 === 0), // filtrar datos
+              take(10), // 10 valores, siestá primero solo buscará pares del 1 al 10
             );
   }
 }
