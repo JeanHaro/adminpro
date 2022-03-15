@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { ThisReceiver } from '@angular/compiler';
+import { Component, OnDestroy } from '@angular/core';
 // interval - retorna un observable, y ya viene configurado la parte del setInteval
-import { Observable, interval } from 'rxjs';
+import { Observable, interval, Subscription } from 'rxjs';
 // take - cuantas emisiones del observable necesitan
 import { retry, take, map, filter } from 'rxjs/operators';
 
@@ -10,63 +11,16 @@ import { retry, take, map, filter } from 'rxjs/operators';
   styles: [
   ]
 })
-export class RxjsComponent {
+export class RxjsComponent implements OnDestroy {
+
+  public intervalSubs: Subscription;
 
   constructor() {
-    // Esto es todo lo que necesita para que el observable empiece a trabajar
-    // pipe() - transformar la información que fluye a través del observable
-    /* 
-    this.retornaObservable().pipe(
-      // retry() // va a estar intentando una y otra vez hasta que lo logre 
-      // retry(1) // Lo intenta una vez más
-      retry(2) // Lo intenta dos veces más
-    ).subscribe({
-      next: valor => console.log('Subs:', valor), 
-      error: error => console.warn('Error:', error),
-      complete: () => console.info('Obs terminado') 
-    }); 
-    */
-
-    /*
-    let i; fuera del Observable
-    Subs: 0
-    Subs: 1
-    Subs: 2
-    i = 2 ..... error
-    Subs: 4
-    Obs terminado
-    */
-
-    /*
-    let i; dentro del Observable
-    retry(1)
-    Subs: 0
-    Subs: 1
-    Subs: 2
-    Subs: 0
-    Subs: 1
-    Subs: 2
-    Error: i llego al valor de 2
-    */
-
-    /*
-    retry(2)
-    Subs: 0
-    Subs: 1
-    Subs: 2
-    Subs: 0
-    Subs: 1
-    Subs: 2
-    Subs: 0
-    Subs: 1
-    Subs: 2
-    Error: i llego al valor de 2
-    */
-
-    this.retornaIntervalo()
+    this.intervalSubs = this.retornaIntervalo()
     .subscribe(
       (valor) => console.log(valor)
     )
+
     /*
     2
     4
@@ -124,7 +78,11 @@ export class RxjsComponent {
             .pipe(
               map( valor =>  valor + 1), // transformar datos
               filter(valor => valor % 2 === 0), // filtrar datos
-              take(10), // 10 valores, siestá primero solo buscará pares del 1 al 10
+              // take(10), // 10 valores, siestá primero solo buscará pares del 1 al 10
             );
+  }
+
+  ngOnDestroy(): void {
+    this.intervalSubs.unsubscribe();
   }
 }
