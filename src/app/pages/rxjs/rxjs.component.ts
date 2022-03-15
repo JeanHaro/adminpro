@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { retry } from 'rxjs/operators';
+// interval - retorna un observable, y ya viene configurado la parte del setInteval
+import { Observable, interval } from 'rxjs';
+// take - cuantas emisiones del observable necesitan
+import { retry, take, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -13,6 +15,7 @@ export class RxjsComponent {
   constructor() {
     // Esto es todo lo que necesita para que el observable empiece a trabajar
     // pipe() - transformar la información que fluye a través del observable
+    /* 
     this.retornaObservable().pipe(
       // retry() // va a estar intentando una y otra vez hasta que lo logre 
       // retry(1) // Lo intenta una vez más
@@ -21,7 +24,9 @@ export class RxjsComponent {
       next: valor => console.log('Subs:', valor), 
       error: error => console.warn('Error:', error),
       complete: () => console.info('Obs terminado') 
-    });
+    }); 
+    */
+
     /*
     let i; fuera del Observable
     Subs: 0
@@ -56,6 +61,21 @@ export class RxjsComponent {
     Subs: 1
     Subs: 2
     Error: i llego al valor de 2
+    */
+
+    this.retornaIntervalo()
+    .subscribe(
+      (valor) => console.log(valor)
+    )
+    /*
+    0
+    1
+    2
+    3
+    .
+    -
+    -
+    infinito y mas alla 
     */
   }
 
@@ -95,5 +115,16 @@ export class RxjsComponent {
     });
 
     return obs$;
+  }
+
+  retornaIntervalo(): Observable<number> {
+    return interval(1000)
+            .pipe(
+              take(4),
+              map( valor => {
+                // transformar los valores
+                return valor + 1
+              })
+            );
   }
 }
