@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
+import { retry } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rxjs',
@@ -10,14 +11,12 @@ import { Observable } from 'rxjs';
 export class RxjsComponent {
 
   constructor() {
-
-    let i = 0;
-
     // $ - indicar que es un observable
     // observer es de tipo subscriber
     // El observer es el que va a estar emitiendo los valores. cuando termina, cuando da error
     // Este subscriber va a decir como esta el observable y que está fluyendo a través de el
     const obs$ = new Observable( observer => {
+      let i = -1;
       // El observer observa que no hay nada suscrito entonces no hará nada
       // Ni realizará funciones
       const intervalo = setInterval(() => {
@@ -35,6 +34,8 @@ export class RxjsComponent {
         }
 
         if (i === 2) {
+          i = 0;
+          // console.log('i = 2 ..... error');
           observer.error('i llego al valor de 2');
         }
 
@@ -43,14 +44,50 @@ export class RxjsComponent {
     });
 
     // Esto es todo lo que necesita para que el observable empiece a trabajar
-    obs$.subscribe({
+    // pipe() - transformar la información que fluye a través del observable
+    obs$.pipe(
+      // retry() // va a estar intentando una y otra vez hasta que lo logre 
+      // retry(1) // Lo intenta una vez más
+      retry(2) // Lo intenta dos veces más
+    ).subscribe({
       next: valor => console.log('Subs:', valor), 
       error: error => console.warn('Error:', error),
       complete: () => console.info('Obs terminado') 
     });
-    // (1) - En consola aparece tick
-    // En consola cada segundo aparece Subs: 0, Subs: 1, Subs: 2, y aumenta cada segundo
-    // Subs: 0, Subs: 1, Subs: 2, Subs: 3, Subs: 4, Obs terminado 
-  }
+    /*
+    let i; fuera del Observable
+    Subs: 0
+    Subs: 1
+    Subs: 2
+    i = 2 ..... error
+    Subs: 4
+    Obs terminado
+    */
 
+    /*
+    let i; dentro del Observable
+    retry(1)
+    Subs: 0
+    Subs: 1
+    Subs: 2
+    Subs: 0
+    Subs: 1
+    Subs: 2
+    Error: i llego al valor de 2
+    */
+
+    /*
+    retry(2)
+    Subs: 0
+    Subs: 1
+    Subs: 2
+    Subs: 0
+    Subs: 1
+    Subs: 2
+    Subs: 0
+    Subs: 1
+    Subs: 2
+    Error: i llego al valor de 2
+    */
+  }
 }
