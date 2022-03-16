@@ -22,12 +22,13 @@ const routes: Routes = [
         /* Rutas hijas */ 
         children: [
             // Ruta por defecto, ya que es el dashboard
-            { path: '', component: DashboardComponent },
-            { path: 'progress', component: ProgressComponent },
-            { path: 'grafica1', component: Grafica1Component },
-            { path: 'account-settings', component: AccountSettingsComponent },
-            { path: 'promesas', component: PromesasComponent },
-            { path: 'rxjs', component: RxjsComponent }
+            // data - para poder mostrarlo en las páginas, argumento que se lee para sabe en qué pagina te encuentras
+            { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+            { path: 'progress', component: ProgressComponent, data: { titulo: 'ProgressBar' } },
+            { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráfica #1' } },
+            { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' } },
+            { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
+            { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } }
             /* Cuando estoy en la ruta con el slash vacío va a redireccionar automáticamente al dashboard */
             // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Esto se colocará en el Routing general (app-routing) por el path vacio
         ]
