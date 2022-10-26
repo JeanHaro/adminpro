@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 // Interfaces
 import { RegisterForm } from '../interfaces/register-form.interface';
+import { LoginForm } from '../interfaces/login-form.interface';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -24,5 +25,10 @@ export class UsuarioService {
     // Como es una promesa el post(), tendríamos que subscrirnos a esto
     // Pero colocando el return haríamos el subscribe en el otro archivo donde haremos la petición 
     return this.http.post(`${base_url}/usuarios`, formData);
+  }
+
+  // TODO: Iniciar sesión
+  login (formData: LoginForm) {
+    return this.http.post(`${base_url}/login`, formData);
   }
 }
