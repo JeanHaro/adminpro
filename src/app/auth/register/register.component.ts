@@ -3,6 +3,9 @@ import { Component } from '@angular/core';
 // Formularios
 import { FormBuilder, Validators, AbstractControl, AbstractControlOptions, ValidatorFn, ValidationErrors } from '@angular/forms';
 
+// SweetAlert2
+import Swal from 'sweetalert2'
+
 // Servicios
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -54,7 +57,10 @@ export class RegisterComponent {
           console.log(resp);
         }, 
         // Mensaje de error
-        error: (err) => console.warn(err.error.msg)
+        error: (err) => {
+          // Si sucede un error
+          Swal.fire('Error', err.error.msg, 'error');
+        }
     });
   }
 
