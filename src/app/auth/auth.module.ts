@@ -7,8 +7,8 @@ import { RegisterComponent } from './register/register.component';
 // Modulos 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,9 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     RouterModule,
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ]
 })
 export class AuthModule { }

@@ -1,7 +1,10 @@
 import { Component } from '@angular/core';
 
 // Formularios
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators, AbstractControl, AbstractControlOptions, ValidatorFn, ValidationErrors } from '@angular/forms';
+
+// Servicios
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-register',
@@ -12,19 +15,25 @@ export class RegisterComponent {
 
   public formSubmitted = false;
 
+  // TODO: Validaciones propias
+  formOptions: AbstractControlOptions = {
+    validators: this.passwordsIguales('password', 'password2') 
+  }
+
   // TODO: Como quiero que luzca mi formulario
   public registerForm = this.fb.group({
     // En la segunda parte del array se coloca el Validators para que valide el valor
     nombre: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
-    password2: ['', Validators.required],
-    terminos: [false, Validators.required]
-  }, { 
-    Validators: this.passwordsIguales('password', 'password2')
-  });
+    password2: ['', [Validators.required]],
+    terminos: [false, [Validators.requiredTrue]]
+  }, this.formOptions);
 
-  constructor (private fb: FormBuilder) { }
+  constructor (
+    private fb: FormBuilder,
+    private usuarioService: UsuarioService
+  ) { }
 
   // Cuando comience a crear el usuario
   crearUsuario() {
@@ -33,11 +42,20 @@ export class RegisterComponent {
     console.log(this.registerForm.value);
 
     // Verificar que el fromulario sea correcto al momento de enviar
-    if (this.registerForm.valid) {
-      console.log('Posteando formulario');
-    } else {
-      console.log('Formulario no es correcto...');
+    if (this.registerForm.invalid) {
+      return;
     }
+
+    // TODO: Realizar el posteo o la creación del usuario
+    this.usuarioService.crearUsuario(this.registerForm.value)
+    .subscribe({
+        next: (resp) => {
+          console.log('usuario creado');
+          console.log(resp);
+        }, 
+        // Mensaje de error
+        error: (err) => console.warn(err.error.msg)
+    });
   }
 
   // TODO: Si el campo  no es valido
@@ -70,8 +88,8 @@ export class RegisterComponent {
   }
 
   // TODO: Contraseñas iguales
-  passwordsIguales (pass1Name: string, pass2Name: string) {
-    return (formGroup: FormGroup) => {
+  passwordsIguales (pass1Name: string, pass2Name: string): ValidatorFn {
+    return (formGroup: AbstractControl): ValidationErrors | null => {
       const pass1Control = formGroup.get(pass1Name);
       const pass2Control = formGroup.get(pass2Name);
 
@@ -81,6 +99,8 @@ export class RegisterComponent {
       } else {
         pass2Control?.setErrors({ noEsIgual: true })
       }
+
+      return null;
     }
   }
 }
