@@ -44,7 +44,19 @@ export class UsuarioService {
       tap((resp: any) => {
         // Primer parámetro - es la llave donde lo vamos a guardar
         // Segundo parámetro - es lo que quiero grabar y solo puede almacenar string
-        localStorage.setItem('token', resp.token)
+        localStorage.setItem('token', resp.token);
+      })
+    )
+  }
+
+  // TODO: Iniciar sesión en Google
+  loginGoogle (token: string) {
+    return this.http.post(`${base_url}/login/google`, { token }).pipe(
+      // tap() - va a recibir lo que responda la petición
+      tap((resp: any) => {
+        // Primer parámetro - es la llave donde lo vamos a guardar
+        // Segundo parámetro - es lo que quiero grabar y solo puede almacenar string
+        localStorage.setItem('token', resp.token);
       })
     )
   }

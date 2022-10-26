@@ -10,3 +10,8 @@
 #themecolors .selector {
     cursor: pointer;
 }
+
+.google-btn {
+    display: flex;
+    justify-content: center;
+}

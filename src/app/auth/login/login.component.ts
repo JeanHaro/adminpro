@@ -47,7 +47,7 @@ export class LoginComponent implements AfterViewInit {
     google.accounts.id.initialize({
       client_id: "606644573622-a6ftkhriq4rp1ibbdkvfbia12f6u8djn.apps.googleusercontent.com",
       // auto_select:"true", // Inicia sesión automáticamente
-      callback: this.handleCredentialResponse
+      callback: (response: any) => this.handleCredentialResponse(response)
     });
 
     google.accounts.id.renderButton(
@@ -70,9 +70,20 @@ export class LoginComponent implements AfterViewInit {
   // TODO: Función luego de iniciar sesión
   handleCredentialResponse (response: any) {
     // Obtener el token
-    console.log(response.credential);
-  }
+    // console.log(response.credential);
 
+    // Iniciar sesión en Google
+    this.usuarioService.loginGoogle(response.credential)
+    .subscribe({
+      next: (resp) => {
+        // console.log({ login: resp })
+        this.router.navigateByUrl('/');
+      },
+      error: (err) => {
+
+      }
+    })
+  }
 
   // Iniciar sesión
   login() {
