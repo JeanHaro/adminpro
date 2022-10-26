@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -20,7 +20,7 @@ export class LoginComponent {
   // TODO: Como quiero que luzca mi formulario
   public loginForm = this.fb.group({
     // En la segunda parte del array se coloca el Validators para que valide el valor
-    email: ['', [Validators.required, Validators.email]],
+    email: [localStorage.getItem('email') || '', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
     remember: [false]
   });
@@ -36,7 +36,14 @@ export class LoginComponent {
     this.usuarioService.login(this.loginForm.value)
     .subscribe({
       next: (resp) => {
-        console.log(resp);
+        // Si la persona quiere recordar la contraseña
+        if (this.loginForm.get('remember')?.value) {
+          localStorage.setItem('email', this.loginForm.get('email')?.value);
+        } else {
+          localStorage.removeItem('email');
+        }
+
+        // console.log(resp);
       },
       error: (err) => {
         // Si sucede un error
