@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { Router } from '@angular/router';
 
@@ -9,12 +9,19 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 // SweetAlert2
 import Swal from 'sweetalert2'
 
+// TODO: any - porque no tenemos el tipado de datos
+declare const google: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: [ './login.component.css' ]
 })
-export class LoginComponent {
+export class LoginComponent implements AfterViewInit {
+
+  // TODO: Referencia local
+  @ViewChild('googleBtn') googleBtn?: ElementRef;
+
   public formSubmitted = false;
 
   // TODO: Como quiero que luzca mi formulario
@@ -30,6 +37,42 @@ export class LoginComponent {
     private fb: FormBuilder,
     private usuarioService: UsuarioService
   ) { }
+
+  ngAfterViewInit(): void {
+    this.googleInit();
+  }
+
+  // TODO: Iniciar sesión en google
+  googleInit() {
+    google.accounts.id.initialize({
+      client_id: "606644573622-a6ftkhriq4rp1ibbdkvfbia12f6u8djn.apps.googleusercontent.com",
+      // auto_select:"true", // Inicia sesión automáticamente
+      callback: this.handleCredentialResponse
+    });
+
+    google.accounts.id.renderButton(
+      // document.getElementById("buttonDiv"), { 
+
+      // Referencia local
+      this.googleBtn?.nativeElement,
+      {
+        theme: "outline", 
+        size: "large",
+        type: "standard",
+        shape: "rectangular",
+        text: "${button.text}",
+        logo_alignment: "left",
+        context: "sign"
+      },  // customization attributes
+    );
+  }
+
+  // TODO: Función luego de iniciar sesión
+  handleCredentialResponse (response: any) {
+    // Obtener el token
+    console.log(response.credential);
+  }
+
 
   // Iniciar sesión
   login() {
