@@ -57,7 +57,7 @@ export class LoginComponent implements AfterViewInit {
       this.googleBtn?.nativeElement,
       {
         theme: "outline", 
-        size: "large",
+        size: "medium",
         type: "standard",
         shape: "rectangular",
         text: "${button.text}",

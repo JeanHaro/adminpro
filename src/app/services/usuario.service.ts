@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient } from '@angular/common/http';
 
+import { Router } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 
 // Rxjs
@@ -14,6 +16,8 @@ import { LoginForm } from '../interfaces/login-form.interface';
 // Environment
 import { environment } from 'src/environments/environment';
 
+declare const google: any;
+
 // Obtener el URL para hacer peticiones
 const base_url = environment.base_url;
 
@@ -22,7 +26,16 @@ const base_url = environment.base_url;
 })
 export class UsuarioService {
 
-  constructor (private http: HttpClient) { }
+  constructor (
+    private http: HttpClient,
+    private router: Router
+  ) { }
+
+  // TODO: Cerrar sesión
+  logout () {
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('/login');
+  }
 
   // TODO: Validamos el token
   validarToken(): Observable<boolean> {
