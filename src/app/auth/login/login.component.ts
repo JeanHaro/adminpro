@@ -67,7 +67,7 @@ export class LoginComponent implements AfterViewInit {
     );
   }
 
-  // TODO: Función luego de iniciar sesión
+  // TODO: Función luego de iniciar sesión en Google
   handleCredentialResponse (response: any) {
     // Obtener el token
     // console.log(response.credential);
@@ -96,8 +96,9 @@ export class LoginComponent implements AfterViewInit {
         } else {
           localStorage.removeItem('email');
         }
-
+        
         // console.log(resp);
+        this.router.navigateByUrl('/');
       },
       error: (err) => {
         // Si sucede un error
@@ -105,6 +106,5 @@ export class LoginComponent implements AfterViewInit {
       }
     });
     // console.log(this.loginForm.value);
-    // this.router.navigateByUrl('/');
   }
 }

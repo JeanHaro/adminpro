@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Formularios
 import { FormBuilder, Validators, AbstractControl, AbstractControlOptions, ValidatorFn, ValidationErrors } from '@angular/forms';
@@ -35,7 +36,8 @@ export class RegisterComponent {
 
   constructor (
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) { }
 
   // Cuando comience a crear el usuario
@@ -53,8 +55,8 @@ export class RegisterComponent {
     this.usuarioService.crearUsuario(this.registerForm.value)
     .subscribe({
         next: (resp) => {
-          console.log('usuario creado');
-          console.log(resp);
+          // Entrar a la página home
+          this.router.navigateByUrl('/');
         }, 
         // Mensaje de error
         error: (err) => {
