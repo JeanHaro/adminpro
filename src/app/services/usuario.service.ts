@@ -9,6 +9,9 @@ import { Observable, of } from 'rxjs';
 // Rxjs
 import { tap, map, catchError } from 'rxjs/operators';
 
+// Modelos
+import { Usuario } from '../models/usuario.model';
+
 // Interfaces
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
@@ -25,6 +28,9 @@ const base_url = environment.base_url;
   providedIn: 'root'
 })
 export class UsuarioService {
+
+  // Variables
+  public usuario!: Usuario;
 
   constructor (
     private http: HttpClient,
@@ -49,6 +55,18 @@ export class UsuarioService {
     }).pipe(
       // En la respuesta viene el token
       tap((resp: any) => {
+        const {
+          email,
+          google,
+          nombre,
+          role,
+          img,
+          uid
+        } = resp.usuarioDB;
+        
+        // Instancia de usuario
+        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+
         localStorage.setItem('token', resp.token)
       }),
       map(resp => true),
