@@ -65,8 +65,9 @@ export class UsuarioService {
         } = resp.usuarioDB;
         
         // Instancia de usuario
-        this.usuario = new Usuario(nombre, email, '', img, google, role, uid);
+        this.usuario = new Usuario(nombre, email, '', role, google, img, uid);
 
+        console.log(resp);
         localStorage.setItem('token', resp.token)
       }),
       map(resp => true),

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 
+// Modelos
+import { Usuario } from 'src/app/models/usuario.model';
+
 // Servicios
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -11,9 +14,14 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class HeaderComponent {
 
+  public usuario: Usuario; 
+
   constructor (
     private usuarioService: UsuarioService
-  ) { }
+  ) { 
+    // TODO: Obtener los datos del modelo de usuario incluyendo sus get y set
+    this.usuario = usuarioService.usuario;
+  }
 
   // TODO: Cerrar sesión
   logout() {
