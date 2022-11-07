@@ -81,7 +81,7 @@ export class RegisterComponent {
     const pass1 = this.registerForm.get('password')?.value;
     const pass2 = this.registerForm.get('password2')?.value;
 
-    // Si las contraseñas son iguales
+    // Si las contraseñas no son iguales
     if (pass1 !== pass2 && this.formSubmitted) {
       return true;
     } else {

@@ -54,13 +54,14 @@ export class UsuarioService {
       }
     }).pipe(
       // En la respuesta viene el token
-      tap((resp: any) => {
+      // map() puede llegar a enviar antes que un tap()
+      map((resp: any) => {
         const {
           email,
           google,
           nombre,
           role,
-          img,
+          img = '',
           uid
         } = resp.usuarioDB;
         
@@ -69,8 +70,9 @@ export class UsuarioService {
 
         console.log(resp);
         localStorage.setItem('token', resp.token)
+
+        return true;
       }),
-      map(resp => true),
       // of() - va a retornar un nuevo observable
       catchError(error => of(false))
     );
