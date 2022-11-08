@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router'; 
 // Para utilizar ngModel tenemos que importar este FormsModule en el modulo.ts
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 // Componentes
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -46,7 +47,8 @@ import { ComponentsModule } from '../components/components.module';
     // AppRoutingModule
     RouterModule, // Otra forma de importar el RouterModule
     FormsModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ]
 })
 export class PagesModule { }

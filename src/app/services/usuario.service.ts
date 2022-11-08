@@ -37,6 +37,15 @@ export class UsuarioService {
     private router: Router
   ) { }
 
+  // TODO: Obtener el token del localStorage
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get uid(): string {
+    return this.usuario.uid || '';
+  }
+
   // TODO: Cerrar sesión
   logout () {
     localStorage.removeItem('token');
@@ -45,12 +54,10 @@ export class UsuarioService {
 
   // TODO: Validamos el token
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-
     return this.http.get(`${base_url}/login/renew`, {
       // Acá se coloca el x-token
       headers: {
-        'x-token': token
+        'x-token': this.token
       }
     }).pipe(
       // En la respuesta viene el token
@@ -91,6 +98,20 @@ export class UsuarioService {
         localStorage.setItem('token', resp.token)
       })
     )
+  }
+
+  // TODO: Actualizar perfil
+  actualizarPerfil (data: { email: string, nombre: string, role?: string }) {
+    data = {
+      ...data,
+      role: this.usuario.role
+    }
+
+    return this.http.put(`${base_url}/usuarios/${this.uid}`, data, {
+      headers: {
+        'x-token': this.token
+      }
+    })
   }
 
   // TODO: Iniciar sesión
