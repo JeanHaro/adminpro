@@ -14,6 +14,7 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 const routes: Routes = [
     /* Rutas protegidas */
@@ -32,7 +33,8 @@ const routes: Routes = [
             { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráfica #1' } },
             { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' } },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
-            { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } }
+            { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
+            { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } }
             /* Cuando estoy en la ruta con el slash vacío va a redireccionar automáticamente al dashboard */
             // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Esto se colocará en el Routing general (app-routing) por el path vacio
         ]

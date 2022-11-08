@@ -12,6 +12,7 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { PagesComponent } from './pages.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 // Modulos
 import { SharedModule } from '../shared/shared.module';
@@ -26,7 +27,8 @@ import { ComponentsModule } from '../components/components.module';
     PagesComponent,
     AccountSettingsComponent,
     PromesasComponent,
-    RxjsComponent
+    RxjsComponent,
+    PerfilComponent
   ],
   // Exportamos los componentes para poder usarlos en otros lados
   exports: [
