@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// SweetAlert2
+import Swal from 'sweetalert2';
+
 // Formularios
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -50,6 +53,11 @@ export class PerfilComponent implements OnInit {
         // TODO: Actualiza todo lo que tenga que ver con el usuario.nombre y el usuario.email
         this.usuario.nombre = nombre;
         this.usuario.email = email;
+      
+        Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+      },
+      error: (err) => {
+        Swal.fire('Error', err.error.msg, 'error');
       }
     })
   }
@@ -80,6 +88,15 @@ export class PerfilComponent implements OnInit {
   subirImagen(){
     this.fileUploadService.actualizarFoto(this.imagenSubir, 'usuarios', this.usuario.uid)
     // Para actualziarlo a tiempo real
-    .then(img => this.usuario.img = img);
+    .then(img => {
+      this.usuario.img = img;
+
+      Swal.fire('Guaradado', 'Imagen guardada', 'success')
+    })
+    .catch(err => {
+      Swal.fire('Error', 'No se pudo subir la imagen', 'error')
+
+      console.log(err);
+    })
   }
 }
