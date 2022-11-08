@@ -8,6 +8,7 @@ import { Usuario } from 'src/app/models/usuario.model';
 
 // Servicios
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { FileUploadService } from 'src/app/services/file-upload.service';
 
 @Component({
   selector: 'app-perfil',
@@ -18,11 +19,13 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class PerfilComponent implements OnInit {
 
   public perfilForm!: FormGroup;
-  public usuario!: Usuario;
+  public usuario: Usuario;
+  public imagenSubir!: File;
 
   constructor (
     private fb: FormBuilder,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private fileUploadService: FileUploadService
   ) {
     // Toda la información por parte del usuario
     this.usuario = usuarioService.usuario;
@@ -50,4 +53,14 @@ export class PerfilComponent implements OnInit {
     })
   }
 
+  // TODO: Cambiar imagen
+  cambiarImagen (file: File) {
+    this.imagenSubir = file;
+  }
+
+  // TODO: Subir imagen
+  subirImagen(){
+    this.fileUploadService.actualizarFoto(this.imagenSubir, 'usuarios', this.usuario.uid)
+    .then(img => console.log(img))
+  }
 }
