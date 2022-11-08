@@ -21,6 +21,7 @@ export class PerfilComponent implements OnInit {
   public perfilForm!: FormGroup;
   public usuario: Usuario;
   public imagenSubir!: File;
+  public imgTemp: any = '';
 
   constructor (
     private fb: FormBuilder,
@@ -54,13 +55,31 @@ export class PerfilComponent implements OnInit {
   }
 
   // TODO: Cambiar imagen
-  cambiarImagen (file: File) {
+  cambiarImagen (file: File): any {
     this.imagenSubir = file;
+
+    // Si se cancela para no subir imagen se coloca la imagen que tiene inicialmente
+    if (!file) { 
+      return this.imgTemp = null; 
+    }
+
+    // FileReader() - Leer un archivo
+    const reader = new FileReader();
+    // Transformar el archivo
+    reader.readAsDataURL(file);
+
+    // Mostrar el url
+    reader.onloadend = () => {
+      // Obtiene todo el url
+      this.imgTemp = reader.result;
+    }
+
   }
 
   // TODO: Subir imagen
   subirImagen(){
     this.fileUploadService.actualizarFoto(this.imagenSubir, 'usuarios', this.usuario.uid)
-    .then(img => console.log(img))
+    // Para actualziarlo a tiempo real
+    .then(img => this.usuario.img = img);
   }
 }
