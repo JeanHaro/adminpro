@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 // Formularios
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
+// Modelo
+import { Usuario } from 'src/app/models/usuario.model';
+
 // Servicios
 import { UsuarioService } from 'src/app/services/usuario.service';
 
@@ -15,25 +18,34 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class PerfilComponent implements OnInit {
 
   public perfilForm!: FormGroup;
+  public usuario!: Usuario;
 
   constructor (
     private fb: FormBuilder,
     private usuarioService: UsuarioService
-  ) { }
+  ) {
+    // Toda la información por parte del usuario
+    this.usuario = usuarioService.usuario;
+  }
 
   ngOnInit(): void {
+    // Formulario con sus validaciones y valores
     this.perfilForm = this.fb.group({
-      nombre: ['123', Validators.required],
-      email: ['abc', [Validators.required, Validators.email]]
+      nombre: [this.usuario.nombre, Validators.required],
+      email: [this.usuario.email, [Validators.required, Validators.email]]
     })
   }
 
+  // TODO: Actualizar el perfil
   actualizarPerfil() {
-    console.log(this.perfilForm.value);
     this.usuarioService.actualizarPerfil(this.perfilForm.value)
     .subscribe({
       next: (resp) => {
-        console.log(resp);
+        const { nombre, email } = this.perfilForm.value;
+
+        // TODO: Actualiza todo lo que tenga que ver con el usuario.nombre y el usuario.email
+        this.usuario.nombre = nombre;
+        this.usuario.email = email;
       }
     })
   }
