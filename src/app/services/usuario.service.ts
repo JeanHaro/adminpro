@@ -15,6 +15,7 @@ import { Usuario } from '../models/usuario.model';
 // Interfaces
 import { RegisterForm } from '../interfaces/register-form.interface';
 import { LoginForm } from '../interfaces/login-form.interface';
+import { CargarUsuario } from '../interfaces/cargar-usuarios.interface';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -44,6 +45,14 @@ export class UsuarioService {
 
   get uid(): string {
     return this.usuario.uid || '';
+  }
+
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token
+      }
+    }
   }
 
   // TODO: Cerrar sesión
@@ -136,5 +145,10 @@ export class UsuarioService {
         localStorage.setItem('token', resp.token);
       })
     )
+  }
+
+  // TODO: Cargar usuarios
+  cargarUsuarios (desde: number = 0) {
+    return this.http.get<CargarUsuario>(`${base_url}/usuarios?desde=${desde}`, this.headers)
   }
 }
