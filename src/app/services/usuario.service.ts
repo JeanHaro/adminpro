@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 
 // Rxjs
-import { tap, map, catchError } from 'rxjs/operators';
+import { tap, map, catchError, delay } from 'rxjs/operators';
 
 // Modelos
 import { Usuario } from '../models/usuario.model';
@@ -150,17 +150,17 @@ export class UsuarioService {
   // TODO: Cargar usuarios
   cargarUsuarios (desde: number = 0) {
     return this.http.get<CargarUsuario>(`${base_url}/usuarios?desde=${desde}`, this.headers)
-                .pipe(
-                  map(resp => {
-                    const usuarios = resp.usuarios.map(
-                      user => new Usuario(user.nombre, user.email, '', user.role, user.google, user.img, user.uid)
-                    )
+    .pipe(
+      map(resp => {
+        const usuarios = resp.usuarios.map(
+          user => new Usuario(user.nombre, user.email, '', user.role, user.google, user.img, user.uid)
+        )
 
-                    return {
-                      total: resp.total,
-                      usuarios,
-                    };
-                  })
-                )
-  }
+        return {
+          total: resp.total,
+          usuarios,
+        };
+      })
+    )
+}
 }
