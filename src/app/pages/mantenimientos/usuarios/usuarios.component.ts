@@ -14,20 +14,43 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 })
 export class UsuariosComponent implements OnInit {
 
-  // Variables
+  // Propiedades
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
+  public desde: number = 0;
 
   constructor (private usuarioService: UsuarioService) { }
 
   ngOnInit(): void {
-    this.usuarioService.cargarUsuarios(0)
+    this.cargarUsuarios();
+  }
+
+  // TODO: Cargar usuarios
+  cargarUsuarios () {
+    this.usuarioService.cargarUsuarios(this.desde)
     .subscribe({
       next: ({ total, usuarios }) => {
         this.totalUsuarios = total;
-        this.usuarios = usuarios;
+
+        // Si el tamaño de los usuarios es diferente de 0, entonces cambias los registros
+        if (usuarios.length !== 0) {
+          this.usuarios = usuarios;
+        }
       }
     })
   }
 
+  // TODO: Cambiar pagina
+  cambiarPagina (valor: number) {
+    this.desde += valor;
+
+    // Si es menor a 0, entonces el desde será 0
+    if (this.desde < 0) {
+      this.desde = 0;
+    } else if (this.desde > this.totalUsuarios) {
+      this.desde -= valor; 
+    }
+
+    this.cargarUsuarios();
+  }
 }
