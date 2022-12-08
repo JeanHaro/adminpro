@@ -15,6 +15,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 const routes: Routes = [
     /* Rutas protegidas */
@@ -34,9 +35,11 @@ const routes: Routes = [
             { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' } },
             { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' } },
             { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' } },
-            { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } }
-            /* Cuando estoy en la ruta con el slash vacío va a redireccionar automáticamente al dashboard */
-            // { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // Esto se colocará en el Routing general (app-routing) por el path vacio
+            { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' } },
+
+            // Mantenimientos
+            { path: 'usuarios', component: UsuariosComponent, data: { titulo: 'Usuario de aplicación' } },
+
         ]
     },
 

@@ -18,6 +18,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 // Modulos
 import { SharedModule } from '../shared/shared.module';
 import { ComponentsModule } from '../components/components.module';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 @NgModule({
   // Solo va a funcionar interna en el mismo modulo
@@ -29,7 +30,8 @@ import { ComponentsModule } from '../components/components.module';
     AccountSettingsComponent,
     PromesasComponent,
     RxjsComponent,
-    PerfilComponent
+    PerfilComponent,
+    UsuariosComponent
   ],
   // Exportamos los componentes para poder usarlos en otros lados
   exports: [
