@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 // Modelos
 import { Usuario } from 'src/app/models/usuario.model';
+import { BusquedasService } from 'src/app/services/busquedas.service';
 
 // Servicios
 import { UsuarioService } from 'src/app/services/usuario.service';
@@ -20,7 +21,10 @@ export class UsuariosComponent implements OnInit {
   public desde: number = 0;
   public cargando: boolean = true;
 
-  constructor (private usuarioService: UsuarioService) { }
+  constructor (
+    private usuarioService: UsuarioService,
+    private busquedaService: BusquedasService
+  ) { }
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -57,5 +61,15 @@ export class UsuariosComponent implements OnInit {
     }
 
     this.cargarUsuarios();
+  }
+
+  // TODO: Buscar
+  buscar (termino: string) {
+    this.busquedaService.buscar('usuarios', termino)
+    .subscribe({
+      next: (resp) => {
+        this.usuarios = resp;
+      }
+    })
   }
 }

@@ -162,5 +162,5 @@ export class UsuarioService {
         };
       })
     )
-}
+  }
 }
