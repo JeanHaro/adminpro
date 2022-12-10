@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
 // Environment
 import { environment } from 'src/environments/environment';
 
+// Modelos
+import { Usuario } from '../models/usuario.model';
+
 
 const base_url = environment.base_url;
 
@@ -30,13 +33,28 @@ export class BusquedasService {
     }
   }
 
+  // TODO: Indicar los valores para la creación de usuarios
+  private transformarUsuarios (resultados: any[]): Usuario[] {
+    return resultados.map(
+      user => new Usuario(user.nombre, user.email, '', user.role, user.google, user.img, user.uid)
+    );
+  }
+
   // TODO: Buscar usuarios
   buscar (
     tipo: 'usuarios' | 'medicos' | 'hospitales',
     termino: string
   ) {
     return this.http.get<any[]>(`${base_url}/todo/coleccion/${tipo}/${termino}`, this.headers).pipe(
-      map( (resp: any) => resp.resultados )
+      map( (resp: any) => {
+        switch (tipo) {
+          case 'usuarios':
+            return this.transformarUsuarios(resp.resultados)
+            break;
+          default:
+            return []
+        }
+      })
     )
   }
 }
