@@ -172,4 +172,9 @@ export class UsuarioService {
       }
     });
   }
+
+  // TODO: Guardar usuario
+  guardarUsuario (usuario: Usuario) {
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`, usuario, this.headers)
+  }
 }
