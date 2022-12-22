@@ -163,4 +163,13 @@ export class UsuarioService {
       })
     )
   }
+
+  // TODO: Eliminar usuario
+  eliminarUsuario (usuario: Usuario) {
+    return this.http.delete(`${base_url}/usuarios/${usuario.uid}`, {
+      headers: {
+        'x-token': this.token
+      }
+    });
+  }
 }

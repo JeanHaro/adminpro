@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// SweetAlert2
+import Swal from 'sweetalert2';
+
 // Modelos
 import { Usuario } from 'src/app/models/usuario.model';
 import { BusquedasService } from 'src/app/services/busquedas.service';
@@ -81,4 +84,31 @@ export class UsuariosComponent implements OnInit {
 
     return [];
   }
+
+  // TODO: Eliminar usuario
+  eliminarUsuario (usuario: Usuario) {
+    Swal.fire({
+      title: '¿Borrar usuario?',
+      text: `Está apunto de borrar a ${ usuario.nombre }`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo'
+    }).then((result) => {
+      if (result.value) {
+        this.usuarioService.eliminarUsuario(usuario)
+        .subscribe({
+          next: (resp) => {
+              Swal.fire(
+                'Usuario borrado', 
+                `${ usuario.nombre } fue eliminado correctamente`, 
+                'success' 
+              );
+
+              this.cargarUsuarios();
+          },
+          error: (err) => Swal.fire('Error', err.error.msg, 'error')
+        })
+      }
+    })
+  } 
 }
