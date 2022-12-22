@@ -60,7 +60,7 @@
                                         <i class="fa fa-pencil text-inverse m-r-10"></i> 
                                     </a>
 
-                                    <a class="cursor" data-toggle="tooltip" data-original-title="Borrar" (click)="eliminarUsuario(usuario)"> 
+                                    <a data-toggle="tooltip" data-original-title="Borrar" (click)="eliminarUsuario(usuario)" *ngIf="user != usuario.email"> 
                                         <i class="fa fa-close text-danger"></i> 
                                     </a>
                                 </td>

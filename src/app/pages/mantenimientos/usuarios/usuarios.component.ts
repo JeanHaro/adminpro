@@ -30,6 +30,9 @@ export class UsuariosComponent implements OnInit {
     private busquedaService: BusquedasService
   ) { }
 
+  // Para obtener el email del usuario que tenemos registrado
+  public user: string = this.usuarioService.usuario.email;
+
   ngOnInit(): void {
     this.cargarUsuarios();
   }
