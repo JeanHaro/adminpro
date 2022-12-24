@@ -9,6 +9,7 @@ import { BusquedasService } from 'src/app/services/busquedas.service';
 
 // Servicios
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { ModalImagenService } from 'src/app/services/modal-imagen.service';
 
 @Component({
   selector: 'app-usuarios',
@@ -27,7 +28,8 @@ export class UsuariosComponent implements OnInit {
 
   constructor (
     private usuarioService: UsuarioService,
-    private busquedaService: BusquedasService
+    private busquedaService: BusquedasService,
+    private modalImagenService: ModalImagenService
   ) { }
 
   // Para obtener el email del usuario que tenemos registrado
@@ -123,5 +125,11 @@ export class UsuariosComponent implements OnInit {
         console.log(resp)
       }
     })
+  }
+
+  // TODO: Abrir el modal
+  abrirModal (usuario: Usuario) {
+    console.log(usuario);
+    this.modalImagenService.abrirModal();
   }
 }
