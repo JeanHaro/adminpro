@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 
 // Environment
 import { environment } from 'src/environments/environment';
@@ -12,9 +12,12 @@ export class ModalImagenService {
 
   // _ - es un caracter cualquiera para indicar que es una propiedad privada
   private _ocultarModal: boolean = true;
-  public tipo!: string;
+  public tipo!: 'usuarios' | 'medicos' | 'hospitales';
   public id!: string;
   public img!: string;
+
+  // Vamos a emitir un string
+  public nuevaImagen: EventEmitter<string> = new EventEmitter<string>();
 
   // Obtenerla y nadie lo va a poder a cambiar acá
   get ocultarModal() {

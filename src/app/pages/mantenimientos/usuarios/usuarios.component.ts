@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+// Rxjs
+import { delay, Subscription } from 'rxjs';
 
 // SweetAlert2
 import Swal from 'sweetalert2';
@@ -17,12 +20,14 @@ import { ModalImagenService } from 'src/app/services/modal-imagen.service';
   styles: [
   ]
 })
-export class UsuariosComponent implements OnInit {
+export class UsuariosComponent implements OnInit, OnDestroy {
 
   // Propiedades
   public totalUsuarios: number = 0;
   public usuarios: Usuario[] = [];
   public usuariosTemp: Usuario[] = [];
+
+  public imgSubs!: Subscription;
   public desde: number = 0;
   public cargando: boolean = true;
 
@@ -32,11 +37,24 @@ export class UsuariosComponent implements OnInit {
     private modalImagenService: ModalImagenService
   ) { }
 
+  ngOnDestroy(): void {
+    // Para que deje de suscribirse al cerrar el modal
+    this.imgSubs.unsubscribe();
+  }
+
   // Para obtener el email del usuario que tenemos registrado
   public user: string = this.usuarioService.usuario.email;
 
   ngOnInit(): void {
     this.cargarUsuarios();
+
+    // Cuando se emita la nueva imagen, lo que hará es cargar los usuarios
+    this.imgSubs = this.modalImagenService.nuevaImagen
+    .pipe(delay(1000))
+    .subscribe( img => {
+      console.log(img);
+      this.cargarUsuarios()
+    });
   }
 
   // TODO: Cargar usuarios
