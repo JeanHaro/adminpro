@@ -13,7 +13,7 @@ export class ModalImagenService {
   // _ - es un caracter cualquiera para indicar que es una propiedad privada
   private _ocultarModal: boolean = true;
   public tipo!: 'usuarios' | 'medicos' | 'hospitales';
-  public id!: string;
+  public id!: string | undefined;
   public img!: string;
 
   // Vamos a emitir un string
@@ -26,7 +26,7 @@ export class ModalImagenService {
 
   abrirModal (
     tipo: 'usuarios' | 'medicos' | 'hospitales',
-    id: string,
+    id: string | undefined,
     img: string = 'no-img' 
   ) {
     this._ocultarModal = false;

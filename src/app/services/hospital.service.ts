@@ -45,21 +45,21 @@ export class HospitalService {
   }
 
   // TODO: Crear hospital
-  crearHospital (nombre: string) {
+  crearHospital (nombre: string | undefined) {
     const url = `${base_url}/hospitales`;
 
     return this.http.post(url, { nombre }, this.headers);
   }
 
   // TODO: Actualizar hospital
-  actualizarHospital (_id: string, nombre: string) {
+  actualizarHospital (_id: string | undefined, nombre: string) {
     const url = `${base_url}/hospitales/${_id}`;
 
     return this.http.put(url, { nombre }, this.headers);
   }
 
   // TODO: Eliminar hospital
-  eliminarHospital (_id: string) {
+  eliminarHospital (_id: string | undefined) {
     const url = `${base_url}/hospitales/${_id}`;
 
     return this.http.delete(url, this.headers);
