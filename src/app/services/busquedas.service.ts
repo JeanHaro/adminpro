@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 
 // Modelos
 import { Usuario } from '../models/usuario.model';
-
+import { Hospital } from '../models/hospital.model';
 
 const base_url = environment.base_url;
 
@@ -40,6 +40,13 @@ export class BusquedasService {
     );
   }
 
+  // TODO: Indicar los valores para la creación de hospitales
+  private transformarHospitales (resultados: any[]): Hospital[] {
+    return resultados.map(
+      hosp => new Hospital(hosp.nombre, hosp._id, hosp.img, hosp.usuario)
+    );
+  }
+
   // TODO: Buscar usuarios
   buscar (
     tipo: 'usuarios' | 'medicos' | 'hospitales',
@@ -50,6 +57,9 @@ export class BusquedasService {
         switch (tipo) {
           case 'usuarios':
             return this.transformarUsuarios(resp.resultados)
+            break;
+          case 'hospitales':
+            return this.transformarHospitales(resp.resultados)
             break;
           default:
             return []
