@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 // Rxjs
 import { delay, Subscription } from 'rxjs';
@@ -20,7 +20,7 @@ import { BusquedasService } from 'src/app/services/busquedas.service';
   styles: [
   ]
 })
-export class HospitalesComponent implements OnInit {
+export class HospitalesComponent implements OnInit, OnDestroy {
 
   public hospitales: Hospital[] = [];
   public hospitalesTemp: Hospital[] = [];
@@ -33,6 +33,10 @@ export class HospitalesComponent implements OnInit {
     private modalImagenService: ModalImagenService,
     private busquedaService: BusquedasService
   ) { }
+
+  ngOnDestroy(): void {
+      this.imgSubs.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.cargarHospitales();
