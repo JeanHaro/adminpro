@@ -1,1 +1,66 @@
-<p>medico works!</p>
+<div class="row">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Médico</h4>
+                <h6 class="card-subtitle">Actualizar información</h6>
+
+                <form class="form-horizontal p-t-20">
+                    <div class="form-group">
+                        <label for="exampleInputuname">Foto</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <img src="http://localhost:3000/api/upload/medicos/asdasd.jpg" class="w200" alt="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputuname">Nombre</label>
+
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <div class="input-group-addon"><i class="ti-user"></i></div>
+                                <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombre del médico">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Hospital</label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <select name="" id="" class="form-control">
+                                    <option value="">Hospital 1</option>
+                                    <option value="">Hospital 2</option>
+                                    <option value="">Hospital 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row m-b-0">
+                        <div class="offset-sm-3 col-sm-9">
+                            <button type="submit" class="btn btn-success waves-effect waves-light">
+                                <i class="fa fa-save"></i>
+                                Guardar
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">Hospital</h4>
+                <h6 class="card-subtitle">Hospital asignado</h6>
+
+                <img src="http://localhost:3000/api/upload/medicos/asdasd.jpg" class="w200" alt="">
+            </div>
+        </div>
+    </div>
+</div>
