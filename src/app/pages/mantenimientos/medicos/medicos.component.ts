@@ -3,6 +3,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 // Rxjs
 import { delay, Subscription } from 'rxjs';
 
+// SweetAlert2
+import Swal from 'sweetalert2';
+
 // Modelo
 import { Medico } from 'src/app/models/medico.model';
 
@@ -73,4 +76,30 @@ export class MedicosComponent implements OnInit, OnDestroy {
     this.modalImagenService.abrirModal('medicos', medico._id, medico.img);
   }
 
+  // TODO: Borrar medico
+  borrarMedico (medico: Medico) {
+    Swal.fire({
+      title: '¿Borrar médico?',
+      text: `Está apunto de borrar a ${ medico.nombre }`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo'
+    }).then((result) => {
+      if (result.value) {
+        this.medicoService.eliminarMedico(medico._id)
+        .subscribe({
+          next: (resp) => {
+            this.cargarMedicos();
+            
+            Swal.fire(
+              'Médico borrado', 
+              `${ medico.nombre } fue eliminado correctamente`, 
+              'success' 
+            );
+          },
+          error: (err) => Swal.fire('Error', err.error.msg, 'error')
+        })
+      }
+    })
+  }
 }
