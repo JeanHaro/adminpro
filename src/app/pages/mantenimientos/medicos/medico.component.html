@@ -5,7 +5,7 @@
                 <h4 class="card-title">Médico</h4>
                 <h6 class="card-subtitle">Actualizar información</h6>
 
-                <form class="form-horizontal p-t-20">
+                <form class="form-horizontal p-t-20" [formGroup]="medicoForm" (submit)="guardarMedico()">
                     <div class="form-group">
                         <label for="exampleInputuname">Foto</label>
 
@@ -22,7 +22,7 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" class="form-control" id="exampleInputuname" placeholder="Nombre del médico">
+                                <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="Nombre del médico">
                             </div>
                         </div>
                     </div>
@@ -31,10 +31,9 @@
                         <label for="exampleInputEmail1">Hospital</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <select name="" id="" class="form-control">
-                                    <option value="">Hospital 1</option>
-                                    <option value="">Hospital 2</option>
-                                    <option value="">Hospital 3</option>
+                                <select name="" id="" class="form-control" formControlName="hospital">
+                                    <option value="">Seleccione Hospital</option>
+                                    <option *ngFor="let hospital of hospitales" [value]="hospital._id">{{ hospital.nombre }}</option>
                                 </select>
                             </div>
                         </div>
@@ -42,7 +41,7 @@
                     
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-9">
-                            <button type="submit" class="btn btn-success waves-effect waves-light">
+                            <button type="submit" class="btn btn-success waves-effect waves-light" [disabled]="medicoForm.invalid">
                                 <i class="fa fa-save"></i>
                                 Guardar
                             </button>
