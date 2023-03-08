@@ -27,4 +27,9 @@ export class HeaderComponent {
   logout() {
     this.usuarioService.logout();
   }
+
+  // Buscar
+  buscar (termino: string) {
+    console.log(termino);
+  }
 }
