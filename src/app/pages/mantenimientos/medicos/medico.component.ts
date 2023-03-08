@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
+// Rxjs
+import { delay } from 'rxjs';
+
 // SweetAlert2
 import Swal from 'sweetalert2';
 
@@ -59,17 +62,21 @@ export class MedicoComponent implements OnInit {
       return;
     }
 
-    this.medicoService.obtenerMedicoPorId(id).subscribe({
-      next: (medico: any): any => {
-        if (!medico) {
-          return this.router.navigateByUrl(`/dashboard/medicos`);
+    this.medicoService.obtenerMedicoPorId(id)
+      .pipe(
+        delay(100)
+      )
+      .subscribe({
+        next: (medico: any): any => {
+          if (!medico) {
+            return this.router.navigateByUrl(`/dashboard/medicos`);
+          }
+          
+          const { nombre, hospital: { _id } } = medico;
+          this.medicoSeleccionado = medico;
+          this.medicoForm.setValue({ nombre, hospital: _id })
         }
-        
-        const { nombre, hospital: { _id } } = medico;
-        this.medicoSeleccionado = medico;
-        this.medicoForm.setValue({ nombre, hospital: _id })
-      }
-    })
+      })
   }
 
   // Obtener dato del hospital
