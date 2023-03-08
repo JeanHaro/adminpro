@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 // Modelos
 import { Usuario } from 'src/app/models/usuario.model';
@@ -17,7 +18,8 @@ export class HeaderComponent {
   public usuario: Usuario; 
 
   constructor (
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private router: Router
   ) { 
     // TODO: Obtener los datos del modelo de usuario incluyendo sus get y set
     this.usuario = usuarioService.usuario;
@@ -30,6 +32,10 @@ export class HeaderComponent {
 
   // Buscar
   buscar (termino: string) {
-    console.log(termino);
+    if (termino.length === 0) {
+      return;
+    }
+
+    this.router.navigateByUrl(`/dashboard/buscar/${termino}`)
   }
 }
