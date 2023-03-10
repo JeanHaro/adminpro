@@ -55,9 +55,19 @@ export class UsuarioService {
     }
   }
 
+  // TODO: Guardar storage
+  guardarLocalStorate (token: string, menu: any) {
+    // Primer parámetro - es la llave donde lo vamos a guardar
+    // Segundo parámetro - es lo que quiero grabar y solo puede almacenar string
+    localStorage.setItem('token', token);
+    localStorage.setItem('menu', JSON.stringify(menu));
+  }
+
   // TODO: Cerrar sesión
   logout () {
     localStorage.removeItem('token');
+    localStorage.removeItem('menu');
+
     this.router.navigateByUrl('/login');
   }
 
@@ -85,7 +95,7 @@ export class UsuarioService {
         this.usuario = new Usuario(nombre, email, '', role, google, img, uid);
 
         console.log(resp);
-        localStorage.setItem('token', resp.token)
+        this.guardarLocalStorate(resp.token, resp.menu);
 
         return true;
       }),
@@ -102,9 +112,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/usuarios`, formData).pipe(
       // tap() - va a recibir lo que responda la petición
       tap((resp: any) => {
-        // Primer parámetro - es la llave donde lo vamos a guardar
-        // Segundo parámetro - es lo que quiero grabar y solo puede almacenar string
-        localStorage.setItem('token', resp.token)
+        this.guardarLocalStorate(resp.token, resp.menu);
       })
     )
   }
@@ -128,9 +136,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login`, formData).pipe(
       // tap() - va a recibir lo que responda la petición
       tap((resp: any) => {
-        // Primer parámetro - es la llave donde lo vamos a guardar
-        // Segundo parámetro - es lo que quiero grabar y solo puede almacenar string
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorate(resp.token, resp.menu);
       })
     )
   }
@@ -140,9 +146,7 @@ export class UsuarioService {
     return this.http.post(`${base_url}/login/google`, { token }).pipe(
       // tap() - va a recibir lo que responda la petición
       tap((resp: any) => {
-        // Primer parámetro - es la llave donde lo vamos a guardar
-        // Segundo parámetro - es lo que quiero grabar y solo puede almacenar string
-        localStorage.setItem('token', resp.token);
+        this.guardarLocalStorate(resp.token, resp.menu);
       })
     )
   }

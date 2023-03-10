@@ -16,14 +16,12 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class SidebarComponent implements OnInit {
 
   // Variables
-  menuItems: any[];
   public usuario: Usuario;
 
   constructor (
-    private sidebarService: SidebarService,
+    public sidebarService: SidebarService,
     private usuarioService: UsuarioService
   ) { 
-    this.menuItems = sidebarService.menu;
     // TODO: Obtener los datos del modelo de usuario incluyendo sus get y set
     this.usuario = usuarioService.usuario;
   }
